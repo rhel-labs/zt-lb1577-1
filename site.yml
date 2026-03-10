@@ -4,13 +4,6 @@ site:
   url: https://github.com/rhpds/showroom_template_zero
   start_page: modules::module-01.adoc
 
-asciidoc:
-  attributes:
-    lab_name: "lb1577-rhel_ts_1"
-    release-version: master
-    page-pagination: true
-    my_var: "foo - this is an asciidoc attribute from `site.yml`"
-
 content:
   sources:
     - url: ./

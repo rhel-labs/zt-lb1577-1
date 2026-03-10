@@ -9,8 +9,8 @@ virtualmachines:
     tags:
       - key: "AnsibleGroup"
         value: "bastions"
+    networks:
+      - default
     packages:
       - httpd
       - policycoreutils-python
-    networks:
-      - default
