@@ -13,4 +13,3 @@ virtualmachines:
       - default
     packages:
       - httpd
-      - policycoreutils-python
