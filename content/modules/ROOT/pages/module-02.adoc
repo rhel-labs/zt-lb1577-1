@@ -1,28 +1,21 @@
-= Antora
+= The web site is down
 
-The `antora` key in `ui-config.yml` defines how the documentation site is built using Antora.
+In the terminal to the left, you'll find our web server. 
 
-[source,yaml]
-----
-antora:
-  name: modules
-  dir: www
-  modules:
-    - name: module-01 
-      label: "Writing your lab"
-    - name: module-02
-      label: "Antora"
-    - name: module-03
-      label: "Tabs"
-----
+The server runs Apache's HTTPD, and we've just restored it from a backup after a critical hardware failure. 
 
-=== Explanation
+The web site was restored to `/var/www/html` and `httpd` was installed and started, but the web site isn't coming up when we view it in the tab labelled `Web Site`. 
 
-- `name`: The name of the documentation folder, here called `modules`.
-- `dir`: The directory where the documentation files will be located (`www`). 
-- `modules`: The list of modules that make up your lab.
+== Diagnose the problem
+If you view the `Web Site` tab, you should see that instead of displaying the desired web site, all you see is the base "It Worked" template the comes with Apache when you install it on RHEL. 
 
-Each module has:
+=== Common Causes for this issue
+This template is actually not a site that is in place in the web root of `httpd`` when it is installed on RHEL, rather it is displayed in place of the error pages in `httpd``.  When you see this page, it means that `httpd`` couldn't find a better page to serve, and so it is displaying its default page. 
 
-- `name`: The file name within the `pages` directory.
-- `label`: A human-readable label for display in navigation.
+This could mean a number of things.
+* The web root could be misconfigured in `httpd`
+* The web site's files were restored to a location other than the `httpd` web root
+* There is a permissions issue preventing `httpd` from accessing the files in the web root
+* `httpd` could be mis-configured in such a way that it is attempting to find the site's index file under a different name, such as `index.htm` vs `index.html` or `index.php``
+
+== Gather information

@@ -1,39 +1,31 @@
-= Writing your lab
+= Welcome to the team! 
 
-== Variables
+Hi! Welcome to your first day on the team.  
 
-The `lab_name` var, known as an asciidoc attribute, is set in `site.yml` and can be used to set the lab_name (Example: {lab_name}) or title of your content.
-They are both free to change its value and if you prefer to use a different var name, you can change the value of `lab_name`, for example to `title` in `site.yml` and then reference it in your content as `\{site-title}` (Ex: {site-title}).
+We run a number of Red Hat Enterprise Linux systems, and all of them have problems, in this lab, and the ones that follow it, you will be asked to solve some common issues that you may encounter as a Red Hat Enterprise Linux system administrator.  Don't worry though, you're not on your own.  The lab will guide you through the core principles that you need in order to find and solve these issues. 
 
-Example:
-[source,asciidoc]
+== The Lab Environment 
+
+On your right, you should see a terminal, where you are connected to a Red Hat Enterprise Linux 10 system.  
+
+All of the work you will be doing in this lab will be inside of that terminal.  Thruout the lab, we may add additional terminals or web browser tabs at the top of the terminal window. 
+
+This instructions pane that you are reading, will guide you through the lab.  We will tell you if you need to switch to a different tab.  
+
+The instructions will also include blocks of commands that you are meant to run in the terminal.  These are called Command Blocks, and will have a copy to clipboard button at the top.  Pressing that button will copy the entire block to your clipboard, and then you can paste it into the terminal by right-clicking, and selecting Paste. An example of a Command Block follows:
+
+[source,bash,role="execute",subs=attributes+]
 ----
-{my_var}
-----
-
-Variable rendered:
-
-{my_var}
-
-== Inserting Images
-
-To display an image in your Antora documentation, place the image file in the `assets/images/` folder of the module, then reference it using the `image::[]` macro
-
-=== Basic Syntax
-
-[source,asciidoc]
-----
-image::example-image.png[Example Image, width=100, height=100]
+ls -l /etc
 ----
 
-This will render the `example-image.png` image as it follows:
+You will also see Output Blocks, which are meant to show you what the output of a command should look like.  Please keep in mind that sometimes the Command Output blocks may not exactly match the output on your screen, but they should give you a general idea of what the output should look like to compare to what your system is reporting. Those look like this:
 
-image::example-image.png[Example Image, width=100, height=100]
+[source,subs=attributes+]
+----
+some ls /etc output here.
+----
 
-=== Understanding the Antora Configuration
 
-This lab explains the purpose and structure of the YAML configuration used in an Antora-based documentation site.
+Now let's head on to the next step, and get started! 
 
-=== Basic Structure
-
-The configuration is written in YAML `ui-config.yml` and includes two main sections: `antora` and `tabs`. Click next to know more.

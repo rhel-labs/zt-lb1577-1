@@ -10,4 +10,27 @@ chmod 666 /tmp/progress.log
 
 #dnf install -y nc
 
+
+# Lab specific setup beyond this point
+
+
 touch /root/thisthingworked
+
+mkdir -p /var/www/html
+cat << EOF > /var/www/html/index.html
+<html>
+<head>
+<title>Super Business</title>
+</head>
+<body>
+<h1>This is our super-businessy important web site</h1>
+All the business comes here.<br>
+<br>
+Without it, we have no business!<br>
+<br>
+</body>
+</html>
+EOF
+
+dnf -y install httpd
+systemctl enable --now httpd

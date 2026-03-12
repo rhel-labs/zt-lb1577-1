@@ -11,5 +11,4 @@ virtualmachines:
         value: "bastions"
     networks:
       - default
-    packages:
-      - httpd
+#    packages:
