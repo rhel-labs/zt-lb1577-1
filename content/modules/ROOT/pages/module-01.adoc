@@ -23,7 +23,20 @@ You will also see Output Blocks, which are meant to show you what the output of 
 
 [source,subs=attributes+]
 ----
-some ls /etc output here.
+[rhel@rhel ~]$ ls -l /etc
+total 1232
+-rw-r--r--.  1 root root   5923 Nov 26  2024 DIR_COLORS
+-rw-r--r--.  1 root root   6005 Nov 26  2024 DIR_COLORS.lightbgcolor
+-rw-r--r--.  1 root root     94 Oct 29  2024 GREP_COLORS
+drwxr-xr-x.  7 root root    134 May 15  2025 NetworkManager
+drwxr-xr-x.  2 root root     48 Jun 17  2025 PackageKit
+drwxr-xr-x.  5 root root     51 Jun 17  2025 X11
+drwxr-xr-x.  4 root root     35 Jun 17  2025 acpi
+-rw-r--r--.  1 root root     12 Feb 13  2025 adjtime
+-rw-r--r--.  1 root root   1529 Nov 29  2023 aliases
+drwxr-xr-x.  2 root root   4096 Jun 17  2025 alternatives
+-rw-r--r--.  1 root root    541 Dec 11  2024 anacrontab
+...
 ----
 
 
