@@ -10,12 +10,165 @@ The web site was restored to `/var/www/html` and `httpd` was installed and start
 If you view the `Web Site` tab, you should see that instead of displaying the desired web site, all you see is the base "It Worked" template the comes with Apache when you install it on RHEL. 
 
 === Common Causes for this issue
-This template is actually not a site that is in place in the web root of `httpd`` when it is installed on RHEL, rather it is displayed in place of the error pages in `httpd``.  When you see this page, it means that `httpd`` couldn't find a better page to serve, and so it is displaying its default page. 
+This template is actually not a site that is in place in the web root of `httpd` when it is installed on RHEL, rather it is displayed in place of the error pages in `httpd`.  When you see this page, it means that `httpd` couldn't find a better page to serve, and so it is displaying its default page. 
 
 This could mean a number of things.
+
 * The web root could be misconfigured in `httpd`
 * The web site's files were restored to a location other than the `httpd` web root
 * There is a permissions issue preventing `httpd` from accessing the files in the web root
 * `httpd` could be mis-configured in such a way that it is attempting to find the site's index file under a different name, such as `index.htm` vs `index.html` or `index.php``
 
 == Gather information
+
+=== Where is the httpd document root?
+First, we should look at the `httpd` configuration file, and make sure of where the `DocumentRoot` is.  In this case, `httpd` is configured with a very basic, standard, configuration.  `httpd` can be configured with include files, and virtual hosts, that can make troubleshooting more confusing if you are not familiar with how these work.  For this lab, the information we are looking for is the `DocumentRoot` directive in `/etc/httpd/conf/httpd.conf`, but in more complex setup's you may need to dig deeper. 
+
+You could open the configration file, and search for `DocumentRoot`, but for our purposes, we can just use `grep`. 
+
+[source,bash,role="execute",subs=attributes+]
+----
+sudo grep '^DocumentRoot' /etc/httpd/conf/httpd.conf
+----
+
+>Note: the pattern `'^DocumentRoot'` asks `grep` to only return lines that start with the word `DocumentRoot`
+
+The above command reveals that the `DocumentRoot` for his web server is /var/www/html. 
+
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ sudo grep '^DocumentRoot' /etc/httpd/conf/httpd.conf
+DocumentRoot "/var/www/html"
+[rhel@rhel ~]$ 
+----
+
+==== What does this tell us? 
+Now that we know where the document root is, we can go and validate a few things. 
+
+* Does the document root path exist?
+* Is the web site properly placed in the document root?
+* Are the permissions set correctly? 
+
+=== Does the DocumentRoot path exist? Is the web site placed inside of the DocumentRoot?
+This one is easy, and we can check two things off of our list at once. 
+
+[source,bash,role="executable",subs=attributes+]
+----
+sudo ls /var/www/html
+----
+
+The above command should show us the files of our web site, if in fact the web site is placed within the `DocumentRoot` that `httpd` is configured to serve our web site from. 
+
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ sudo ls /var/www/html
+index.html
+[rhel@rhel ~]$ 
+----
+
+Look at that! An index.html file.  Now let's see what is inside of the file, this step requires some knowledge of what the web site's content is supposed to look like.  Normally a production web site would not be this minimalistic, and would probably consist of an entire tree of documents including images, style sheets, and probably code that generates a dynamic site.  In our case though, we made it simple, our web site is a single `html` document, and that document contains a very simple page.  
+
+[source,bash,role="executable",subs=attributes+]
+----
+sudo cat /var/www/html/index.html
+----
+
+Your file should look like this:
+
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ sudo cat /var/www/html/index.html
+<html>
+<head>
+<title>Super Business</title>
+</head>
+<body>
+<h1>This is our super-businessy important web site</h1>
+All the business comes here.<br>
+<br>
+Without it, we have no business!<br>
+<br>
+</body>
+</html>
+----
+
+What can I say? Super-business does not require a super-complicated web site! 
+
+==== What does this tell us? 
+Based on what we know, and what we've learned, so far it looks like `httpd` is configured properly to serve our web site from `/var/www/html`, and our web site has been restored to the proper directory.  Our web site still isn's working though, so we'll need to continue digging. 
+
+=== Permissions
+Permissions are a very common, but usually simple, and sometimes easy to overlook, problem on any Linux system.  
+
+`httpd`'s main process runs as `root`, and spawn's worker processes that run as the `apache` user.  So it might be confusing as to which user should own the files.  You can see this behavior with `ps`
+
+[source,bash,role="executable",subs=attributes+]
+----
+ps aux | grep httpd
+----
+
+You will see one `httpd` process owned by `root`, and at least one owned by `apache`. 
+
+You can ignore the grep that also shows in the output.
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ ps aux | grep httpd
+root       15388  0.0  0.4  19528 13804 ?        Ss   18:37   0:00 /usr/sbin/httpd -DFOREGROUND
+apache     15389  0.0  0.1  19184  5640 ?        S    18:37   0:00 /usr/sbin/httpd -DFOREGROUND
+apache     15390  0.0  0.2 904440  7364 ?        Sl   18:37   0:00 /usr/sbin/httpd -DFOREGROUND
+apache     15391  0.0  0.2 773304  8252 ?        Sl   18:37   0:00 /usr/sbin/httpd -DFOREGROUND
+apache     15408  0.0  0.2 773304  7216 ?        Sl   18:37   0:00 /usr/sbin/httpd -DFOREGROUND
+rhel      126354  0.0  0.0   3848  1820 pts/0    S+   19:27   0:00 grep --color=auto httpd
+[rhel@rhel ~]$ 
+----
+
+Because of this configuration, and the way the default filesystem permissions are set on `/var/www/`, you can actually have either `root` or `apache` own `/var/www/html`, but the default permissions are ownership of `root:root`, and permissions of `755` or the owner has full control, and everyone else gets only read and execute (or just read for files).  So why don't we have a look at how our `/var/www/html` directory is setup? 
+
+[source,bash,role="executable",subs=attributes+]
+----
+sudo ls -l /var/www/
+----
+
+This will give us the long-listing, which includes permissions, and some other data, for our `DocumentRoot`'s parent directory. 
+
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ ls -l /var/www/
+total 0
+drwxr-xr-x. 2 root root  6 Dec 10 00:00 cgi-bin
+drwxr-xr-x. 3 root root 38 Mar 17 19:29 git
+drwxr-xr-x. 2 1002 1002 24 Dec 10 00:00 html
+[rhel@rhel ~]$ 
+----
+
+Something doesn't look right there does it?  Remember when we said the web site was restored from backup?  Well it looks like the permissions weren't set properly when it was restored.  This can be a common issue depending on how you backup and restore data. 
+
+But let's check one more permissions-related thing before we make any changes.  `SELinux`
+
+`SELinux` or Security Ehanced Linux, is a mandatory access control layer that runs between processes, files, and ports. `SELinux` can be a real life-saver in the even of some other failure that leads to a security compromise.  So it is always recommended that you leave it on.  You can temporarily disable `SELinux` at the command line, but in its default configuration, it will turn itself back on after the next reboot. 
+
+Many commands have a flag that will let you check the `SELinux` contexts involved.  In the case of `ls`, that flag is `-Z`.  Why don't we have a look at the selinux contexts on our `DocumentRoot`.
+
+[source,bash,role="executable",subs=attributes+]
+----
+sudo ls -lZ /var/www
+----
+
+[source,subs=attributes+]
+----
+[rhel@rhel ~]$ sudo ls -lZ /var/www
+total 0
+drwxr-xr-x. 2 root root system_u:object_r:httpd_sys_script_exec_t:s0  6 Dec 10 00:00 cgi-bin
+drwxr-xr-x. 3 root root system_u:object_r:git_content_t:s0           38 Mar 17 19:29 git
+drwxr-xr-x. 2 1002 1002 system_u:object_r:default_t:s0               24 Dec 10 00:00 html
+----
+
+You can see that each directory in the listing has a context associated with it, and `html` is set to `system_u:object_r:default_t:s0`.  That doesn't look right. 
+
+==== What does this tell us?
+It really feels like we've found the problem, the ownership of the `DocumentRoot` is incorrect, and the `SELinux` contexts also don't look proper.  It may be that our backup restore worked, but did not properly re-set permissions or contexts after the restore. 
+
+== Next Steps
+Notice that in this module we gathered a lot of information, but have -NOT- made any changes?  It is always best to do your investigation methodically, and then decide what needs to be changed.  If you rush in, and start making changes, you can easily make the problem worse while you are trying to make it better.  
+
+In the next module, we will fix what we expect is wrong. 

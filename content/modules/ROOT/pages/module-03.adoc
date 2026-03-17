@@ -1,3 +1,14 @@
+= Taking Action
+
+something something. 
+change the permissions on /var/www/html
+test
+set selinux to permissive, 
+test
+restorecon /var/www/html
+set selinux to enforcing
+test
+
 = Tabs
 
 [source,yaml]

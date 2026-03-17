@@ -8,17 +8,17 @@ antora:
       label: "Writing your lab"
       solveButton: false
     - name: module-02
-      label: "Antora"
+      label: "Gathering Information"
       solveButton: false
     - name: module-03
-      label: "Tabs"
+      label: "Taking Action"
       solveButton: false
 
 tabs:
   - name: ">_ terminal"
     url: /wetty
-  - name: "Web Browser"
-    url: http://${guid}.${domain}
+  - name: "Web Site"
+    url: http://rhel-${guid}.${domain}
     modules:
       - module-02
       - module-03
