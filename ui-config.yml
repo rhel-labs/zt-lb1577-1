@@ -18,4 +18,7 @@ tabs:
   - name: ">_ terminal"
     url: /wetty
   - name: "Web Browser"
-    url: http://${giud}.${domain}
+    url: http://${guid}.${domain}
+    modules:
+      - module-02
+      - module-03
