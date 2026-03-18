@@ -18,7 +18,7 @@ tabs:
   - name: ">_ terminal"
     url: /wetty
   - name: "Web Site"
-    url: http://rhel-${guid}.${domain}
+    url: http://rhel-${guid}.${domain}/
     modules:
       - module-02
       - module-03
