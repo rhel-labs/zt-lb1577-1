@@ -16,6 +16,7 @@ chmod 666 /tmp/progress.log
 
 touch /root/thisthingworked
 
+
 mkdir -p /var/www/html
 cat << EOF > /var/www/html/index.html
 <html>
