@@ -14,15 +14,15 @@ virtualmachines:
     packages:
       - httpd
     services:
-      - name: web
+      - name: rhel-http
         ports:
           - port: 80
             protocol: TCP
             targetPort: 80
-            name: web
+            name: rhel-http
     routes:
-      - name: web
-        host: rhel
-        service: http
+      - name: rhel-http
+        host: rhel-http
+        service: rhel-http
         targetPort: 80
         tls: false
