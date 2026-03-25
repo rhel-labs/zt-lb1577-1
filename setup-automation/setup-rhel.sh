@@ -14,7 +14,7 @@ chmod 666 /tmp/progress.log
 # Lab specific setup beyond this point
 
 
-touch /root/thisthingworked
+systemctl disable --now dnf-automatic.timer
 
 
 mkdir -p /var/www/html
