@@ -103,7 +103,7 @@ You should now see the Super-Business website with the message "This is our supe
 
 [TIP]
 ====
-If you still see the default Apache page, try refreshing your browser. Sometimes browsers cache the error page.
+If you still see the default Apache page, try refreshing the Web Site tab by pressing the re-fresh button inside of the tab's title.
 ====
 
 == What We Learned
