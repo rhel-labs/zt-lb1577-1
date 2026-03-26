@@ -33,7 +33,7 @@ sudo grep '^DocumentRoot' /etc/httpd/conf/httpd.conf
 
 [Note:]
 ----
-The pattern `'^DocumentRoot'` asks `grep` to only return lines that start with the word `DocumentRoot`
+The pattern '^DocumentRoot' asks grep to only return lines that start with the word DocumentRoot
 ----
 
 The above command reveals that the `DocumentRoot` for his web server is /var/www/html. 
