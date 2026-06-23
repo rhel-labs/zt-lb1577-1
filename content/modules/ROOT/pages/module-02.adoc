@@ -14,7 +14,7 @@ You are meant to collect information in this step. and not make any changes.  Se
 Or, expand the hidden troubleshooting section below, and follow along. 
 ----
 
-=====
+
 .Lab Troubleshooting Hidden
 [%collapsible]
 ====
@@ -183,7 +183,7 @@ It really feels like we've found the problem, the ownership of the `DocumentRoot
 
 == Next Steps
 Notice that in this module we gathered a lot of information, but have -NOT- made any changes?  It is always best to do your investigation methodically, and then decide what needs to be changed.  If you rush in, and start making changes, you can easily make the problem worse while you are trying to make it better.  
+====
 
 In the next module, we will fix what we expect is wrong. 
-====
-=====
+
