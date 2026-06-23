@@ -6,6 +6,18 @@ The server runs Apache's HTTPD, and we've just restored it from a backup after a
 
 The web site was restored to `/var/www/html` and `httpd` was installed and started, but the web site isn't coming up when we view it in the tab labelled `Web Site`. 
 
+[Note:]
+----
+The troubleshooting section is intentionally collapsed. 
+If you would like to attempt to troubleshoot on your own, feel free to leave this section hidden, and work through the problem. 
+You are meant to collect information in this step. and not make any changes.  See if you can identify the problem on your own
+Or, expand the hidden troubleshooting section below, and follow along. 
+----
+
+=====
+.Lab Troubleshooting Hidden
+[%collapsible]
+====
 == Diagnose the problem
 If you view the `Web Site` tab, you should see that instead of displaying the desired web site, all you see is the base "It Worked" template that comes with Apache when you install it on RHEL. 
 
@@ -173,3 +185,5 @@ It really feels like we've found the problem, the ownership of the `DocumentRoot
 Notice that in this module we gathered a lot of information, but have -NOT- made any changes?  It is always best to do your investigation methodically, and then decide what needs to be changed.  If you rush in, and start making changes, you can easily make the problem worse while you are trying to make it better.  
 
 In the next module, we will fix what we expect is wrong. 
+====
+=====
