@@ -200,7 +200,7 @@ drwxr-xr-x. 2 1002 1002 system_u:object_r:default_t:s0               24 Dec 10 0
 
 You can see that each directory in the listing has a context associated with it, and `html` is set to `system_u:object_r:default_t:s0`.  That doesn't look right. 
 
-*What does out permissions hunt tell us?*
+*What does our permissions hunt tell us?*
 It really feels like we've found the problem, the ownership of the `DocumentRoot` is incorrect, and the `SELinux` contexts also don't look proper.  It may be that our backup restore worked, but did not properly re-set permissions or contexts after the restore. 
 
 ====
