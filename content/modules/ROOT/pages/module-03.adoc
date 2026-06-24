@@ -137,10 +137,10 @@ In this lab, you learned how to:
 
 3. **Work methodically** - We gathered information first, identified the problem, and then made targeted fixes rather than blindly changing things.
 
-.IMPORTANT
-===
+[IMPOTANT]
+----
 Always investigate before you fix! Rushing to make changes without understanding the problem can make things worse. The time spent gathering information is never wasted.
-===
+----
 
 ====
 
