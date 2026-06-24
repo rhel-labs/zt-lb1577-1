@@ -7,7 +7,9 @@ Now that we've identified the issues with our web server, it's time to fix them.
 
 Let's fix these issues methodically, testing after each change.
 
-== Step 1: Fix the File Ownership
+.Step 1: Fix the file ownership
+[%collapsible]
+====
 
 The first issue we'll tackle is the ownership. The directory and its contents should be owned by `root:root`. We'll use the `chown` command to fix this.
 
@@ -18,7 +20,7 @@ sudo chown -R root:root /var/www/html
 
 The `-R` flag makes the command recursive, so it will change ownership of the directory and all files within it.
 
-=== Verify the Ownership Change
+*Verify the Ownership Change*
 
 Let's verify that the ownership is now correct:
 
@@ -41,7 +43,11 @@ drwxr-xr-x. 2 root root 24 Dec 10 00:00 html
 
 Good! The ownership is now `root:root`. But if you check the `Web Site` tab, you'll see it's still not working. That's because we still need to fix the SELinux context.
 
-== Step 2: Fix the SELinux Context
+====
+
+.Step 2: Fix the SELinux context
+[%collapsible]
+====
 
 SELinux contexts define what processes can access what files. The `httpd` process needs files in `/var/www/html` to have the correct SELinux type.
 
@@ -58,7 +64,7 @@ Let's break down these flags:
 * `-F` - Force, resets contexts even if they appear correct
 * `-R` - Recursive, processes directories and their contents
 
-=== Understanding the Output
+*Understanding the Output*
 
 The `restorecon` command will show you what it changed:
 
@@ -72,7 +78,7 @@ Relabeled /var/www/html/index.html from system_u:object_r:default_t:s0 to system
 
 Notice that both the directory and the `index.html` file were changed from `default_t` to `httpd_sys_content_t`. This is the correct SELinux type for httpd content.
 
-=== Verify the SELinux Context
+*Verify the SELinux Context*
 
 Let's verify the context is now correct:
 
@@ -95,18 +101,27 @@ drwxr-xr-x. 2 root root system_u:object_r:httpd_sys_content_t:s0     24 Dec 10 0
 
 Perfect! The `html` directory now has the correct `httpd_sys_content_t` context.
 
-== Step 3: Test the Web Site
+====
+
+.Step 3: Test the web site
+[%collapsible]
+====
 
 Now that we've fixed both issues, let's test the web site. Click on the `Web Site` tab at the top of the terminal.
 
 You should now see the Super-Business website with the message "This is our super-businessy important web site" instead of the default Apache test page!
 
 [TIP]
-====
+===
 If you still see the default Apache page, try refreshing the Web Site tab by pressing the re-fresh button inside of the tab's title.
+===
+
 ====
 
-== What We Learned
+
+.What We Learned
+[%collapsible]
+====
 
 In this lab, you learned how to:
 
@@ -123,8 +138,10 @@ In this lab, you learned how to:
 3. **Work methodically** - We gathered information first, identified the problem, and then made targeted fixes rather than blindly changing things.
 
 [IMPORTANT]
-====
+===
 Always investigate before you fix! Rushing to make changes without understanding the problem can make things worse. The time spent gathering information is never wasted.
+===
+
 ====
 
 == Next Steps
