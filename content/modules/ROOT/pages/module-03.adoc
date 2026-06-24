@@ -111,7 +111,7 @@ Now that we've fixed both issues, let's test the web site. Click on the `Web Sit
 
 You should now see the Super-Business website with the message "This is our super-businessy important web site" instead of the default Apache test page!
 
-[TIP]
+.TIP
 ===
 If you still see the default Apache page, try refreshing the Web Site tab by pressing the re-fresh button inside of the tab's title.
 ===
@@ -137,7 +137,7 @@ In this lab, you learned how to:
 
 3. **Work methodically** - We gathered information first, identified the problem, and then made targeted fixes rather than blindly changing things.
 
-[IMPORTANT]
+.IMPORTANT
 ===
 Always investigate before you fix! Rushing to make changes without understanding the problem can make things worse. The time spent gathering information is never wasted.
 ===
