@@ -6,8 +6,8 @@ The server runs Apache's HTTPD, and we've just restored it from a backup after a
 
 The web site was restored to `/var/www/html` and `httpd` was installed and started, but the web site isn't coming up when we view it in the tab labelled `Web Site`. 
 
-.Note:
-====
+[Note:]
+=====
 The troubleshooting section is intentionally collapsed. 
 
 If you would like to attempt to troubleshoot on your own, feel free to leave this section hidden, and work through the problem. 
@@ -15,7 +15,7 @@ If you would like to attempt to troubleshoot on your own, feel free to leave thi
 You are meant to collect information in this step. and not make any changes.  See if you can identify the problem on your own
 
 Or, expand the hidden troubleshooting section below, and follow along. 
-====
+=====
 
 
 
@@ -50,7 +50,7 @@ You could open the configration file, and search for `DocumentRoot`, but for our
 sudo grep '^DocumentRoot' /etc/httpd/conf/httpd.conf
 ----
 
-.Note:
+[Note:]
 =====
 The pattern '^DocumentRoot' asks grep to only return lines that start with the word DocumentRoot
 =====
